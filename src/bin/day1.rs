@@ -4,7 +4,7 @@ use std::fs;
 use std::io;
 
 fn main() {
-    let file_path = "../../inputs/day1.txt";
+    let file_path = "inputs/day1.txt";
     match fs::read_to_string(file_path) {
         Ok(content) => {
             match part1(&content) {
