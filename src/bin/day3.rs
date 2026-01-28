@@ -38,11 +38,21 @@ fn part_one(string: &String) -> Result<u32, &'static str> {
     for c in string.chars() {
         index = index + 1;
         match c {
-            '>' => x += 1,
-            '<' => x -= 1,
-            '^' => y += 1,
-            'v' => y -= 1,
-            _ => return Err("Invalid character"),
+            '>' => {
+                x += 1;
+            }
+            '<' => {
+                x -= 1;
+            }
+            '^' => {
+                y += 1;
+            }
+            'v' => {
+                y -= 1;
+            }
+            _ => {
+                return Err("Invalid character");
+            }
         }
         *coordinate.entry((x, y)).or_insert(0) += 1;
     }
@@ -58,18 +68,24 @@ fn part_two(input: &str) -> Result<u32, &'static str> {
     *houses.entry((0, 0)).or_insert(0) += 1;
 
     for (i, c) in input.chars().enumerate() {
-        let pos = if i % 2 == 0 {
-            &mut santa
-        } else {
-            &mut robot
-        };
+        let pos = if i % 2 == 0 { &mut santa } else { &mut robot };
 
         match c {
-            '>' => pos.0 += 1,
-            '<' => pos.0 -= 1,
-            '^' => pos.1 += 1,
-            'v' => pos.1 -= 1,
-            _ => return Err("Invalid character"),
+            '>' => {
+                pos.0 += 1;
+            }
+            '<' => {
+                pos.0 -= 1;
+            }
+            '^' => {
+                pos.1 += 1;
+            }
+            'v' => {
+                pos.1 -= 1;
+            }
+            _ => {
+                return Err("Invalid character");
+            }
         }
 
         *houses.entry(*pos).or_insert(0) += 1;
