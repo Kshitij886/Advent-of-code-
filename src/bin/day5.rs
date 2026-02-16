@@ -1,17 +1,19 @@
 use std::fs;
 
 fn main() {
-    let file_path = "./day5.txt";
+    let file_path = "inputs/day5.txt";
     match fs::read_to_string(file_path) {
         Ok(content) => {
-            part_one(&content);
+            let ans = part_one(&content);
+            println!("part one ans is {}", ans);
         }
         Err(e) => {
             println!("Error {}", e);
         }
     }
 }
-fn part_one(content: &String) -> String {
+fn part_one(content: &String) -> u32 {
+    let mut total = 0;
     let restricted_words: Vec<String> = vec![
         "ab".to_string(),
         String::from("cd"),
@@ -27,7 +29,7 @@ fn part_one(content: &String) -> String {
     ];
     for s in content.lines() {
         if restricted_words.iter().any(|w| s.contains(w)) {
-            break;
+            continue;
         }
         let vowel_vec: Vec<char> = s
             .chars()
@@ -35,15 +37,21 @@ fn part_one(content: &String) -> String {
             .collect();
         let no_of_vowels = vowel_vec.len();
         if no_of_vowels < 3 {
-            break;
+            continue;
         }
-        let double =s.chars();
-        let mut i: u32 = 0;
-        for d in double {
-            i += 1;
-            if
+        let double: Vec<char> = s.chars().collect();
+        let mut has_double = false;
 
+        for d in 0..double.len() - 1 {
+            if double[d] == double[d + 1] {
+                has_double = true;
+                break;
+            }
+        }
+
+        if has_double {
+            total += 1;
         }
     }
-    return String::from("hello");
+    return total;
 }
