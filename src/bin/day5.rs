@@ -6,6 +6,8 @@ fn main() {
         Ok(content) => {
             let ans = part_one(&content);
             println!("part one ans is {}", ans);
+            let ans1 = part_two(&content);
+            println!("Part Two ans is {}", ans1);
         }
         Err(e) => {
             println!("Error {}", e);
@@ -53,5 +55,32 @@ fn part_one(content: &String) -> u32 {
             total += 1;
         }
     }
+    return total;
+}
+
+fn part_two(content: &String) -> u32 {
+    let mut total: u32 = 0;
+    for line in content.lines() {
+        let char: Vec<char> = line.chars().collect();
+        let mut is_one_true = false;
+        let mut is_two_true = false;
+        for i in 0..line.len().saturating_sub(1) {
+            let pairs = &line[i..(i + 2)];
+            if line[(i + 2)..].contains(pairs) {
+                is_one_true = true;
+                break;
+            }
+        }
+        for i in 0..line.len().saturating_sub(2) {
+            if char[i] == char[i + 2] {
+                is_two_true = true;
+                break;
+            }
+        }
+        if is_one_true && is_two_true {
+            total += 1;
+        }
+    }
+
     return total;
 }
